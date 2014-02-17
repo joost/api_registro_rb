@@ -1,6 +1,6 @@
 # ApiRegistro
 
-TODO: Write a gem description
+A simple client for APIRegistro Domain registration API service (http://apiregistro.com.br).
 
 ## Installation
 
@@ -18,7 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    client = ApiRegistro.client("INSERT YOUR TOKEN HERE") # uses production environment.
+    client = ApiRegistro.client("INSERT YOUR TOKEN HERE", ApiRegistro::Environments::SANDBOX) #uses sandbox environment for testing purposes.
+    h = {name: "John  Doe", document: "111.111.111-11", email: "john@email.com"}
+    response = client.create_contact(h) # creates a contact
+    contact_json = client.find_contact("111.111.111-11") # retrieves a contact using contact's CPF.
+    response = client.find_domain("mydomain.com.br") # retrieves domain registration information
+    response = client.register_domain("mydomain.com.br", "111.111.111-11") # register domain testejoopp.com to contact assigned to CPF 111.111.111-11
 
 ## Contributing
 
