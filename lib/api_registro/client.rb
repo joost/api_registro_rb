@@ -8,7 +8,6 @@ module ApiRegistro
     end
     
     def create_contact(opts={})
-      #WIP
       message = {
         headers:    { "Accept"        => "application/json", 
                       "Content-Type"  => "application/json",
@@ -16,47 +15,50 @@ module ApiRegistro
                     },
         body: opts.to_json
       }
-      http_request(url_for(:create_contact), ApiRegistro::SupportedMethods::POST, message)
+      request(url_for(:create_contact), ApiRegistro::SupportedMethods::POST, message)
     end
     
     def find_contact(document_number)
-      #WIP
       message = {
         headers:    { "Accept" => "application/json", "authorization" => @token }
       }
-      response = http_request(url_for(:find_contact, document_number), ApiRegistro::SupportedMethods::GET, message)
-      if(response.code == 200)
-        response.body
-      else
-        nil
-      end
+      request(url_for(:find_contact, document_number), ApiRegistro::SupportedMethods::GET, message)
     end
     
-    def register_domain(opts={})
-      #WIP
-      #http_request(url_for(:register_domain), ApiRegistro::SupportedMethods::POST, message(opts))
+    def register_domain(domain, document_number)
+      message = {
+        headers:    { "Accept"        => "application/json", 
+                      "Content-Type"  => "application/json",
+                      "Authorization" => "Token #{@token}"
+                    },
+        body: {document: document_number}.to_json
+      }
+      request(url_for(:register_domain, domain), ApiRegistro::SupportedMethods::POST, message)
     end
     
     def find_domain(domain_name)
-      #WIP
       message = {
         headers:    { "Accept" => "application/json", "authorization" => @token }
       }
-      response = http_request(url_for(:find_domain, domain_name), ApiRegistro::SupportedMethods::GET, message)
+      request(url_for(:find_domain, domain_name), ApiRegistro::SupportedMethods::GET, message)
+    end
+    
+    private
+    
+    def request(url, http_method, message)
+      response = http_request(url, http_method, message)
       if(response.code == 200)
         response.body
       else
         nil
       end
     end
-    
-    private
     
     def uris
       {
           create_contact:  "contacts/",
           find_contact:    "contacts/%s",
-          register_domain: "domains/%s/buy",
+          register_domain: "domains/%s/buy/",
           find_domain:     "domains/?search=%s"
       }
     end
