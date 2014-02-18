@@ -57,7 +57,7 @@ module ApiRegistro
     def uris
       {
           create_contact:  "contacts/",
-          find_contact:    "contacts/%s",
+          find_contact:    "contacts/%s/",
           register_domain: "domains/%s/buy/",
           find_domain:     "domains/?search=%s"
       }
