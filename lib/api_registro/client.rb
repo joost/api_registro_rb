@@ -15,14 +15,14 @@ module ApiRegistro
                     },
         body: opts.to_json
       }
-      request(url_for(:create_contact), ApiRegistro::SupportedMethods::POST, message)
+      JSON.parse(request(url_for(:create_contact), ApiRegistro::SupportedMethods::POST, message))
     end
     
     def find_contact(document_number)
       message = {
         headers:    { "Accept" => "application/json", "authorization" => @token }
       }
-      request(url_for(:find_contact, document_number), ApiRegistro::SupportedMethods::GET, message)
+      JSON.parse(request(url_for(:find_contact, document_number), ApiRegistro::SupportedMethods::GET, message))
     end
     
     def register_domain(domain, document_number)
@@ -33,14 +33,14 @@ module ApiRegistro
                     },
         body: {document: document_number}.to_json
       }
-      request(url_for(:register_domain, domain), ApiRegistro::SupportedMethods::POST, message)
+      JSON.parse(request(url_for(:register_domain, domain), ApiRegistro::SupportedMethods::POST, message))
     end
     
     def find_domain(domain_name)
       message = {
         headers:    { "Accept" => "application/json", "authorization" => @token }
       }
-      request(url_for(:find_domain, domain_name), ApiRegistro::SupportedMethods::GET, message)
+      JSON.parse(request(url_for(:find_domain, domain_name), ApiRegistro::SupportedMethods::GET, message))
     end
     
     private

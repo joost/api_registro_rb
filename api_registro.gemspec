@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["danielqo@gmail.com"]
   spec.description   = %q{A client for APIRegistro.com.br API}
   spec.summary       = %q{APIRegistro.com.br API client}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/danielqo/api_registro_rb"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
