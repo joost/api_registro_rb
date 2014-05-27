@@ -6,11 +6,11 @@ require 'api_registro/version'
 Gem::Specification.new do |spec|
   spec.name          = "api_registro"
   spec.version       = ApiRegistro::VERSION
-  spec.authors       = ["Daniel Quirino Oliveira"]
-  spec.email         = ["danielqo@gmail.com"]
+  spec.authors       = ["Joost Hietbrink", "Daniel Quirino Oliveira"]
+  spec.email         = ["joost@joopp.com", "danielqo@gmail.com"]
   spec.description   = %q{A client for APIRegistro.com.br API}
   spec.summary       = %q{APIRegistro.com.br API client}
-  spec.homepage      = "https://github.com/danielqo/api_registro_rb"
+  spec.homepage      = "https://github.com/joost/api_registro_rb"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
