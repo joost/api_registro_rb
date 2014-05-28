@@ -78,6 +78,7 @@ module ApiRegistro
       options[:base_uri] ||= base_uri
       options[:headers] ||= {}
       options[:headers].reverse_merge!('Accept' => 'application/json', 'Authorization' => "Token #{@token}")
+      # puts "GET path: #{path}, options: #{options.inspect}"
       parse_response(self.class.get(path, options))
     end
 
@@ -85,7 +86,7 @@ module ApiRegistro
       options[:base_uri] ||= base_uri
       options[:headers] ||= {}
       options[:headers].reverse_merge!('Accept' => 'application/json', 'Authorization' => "Token #{@token}", 'Content-Type' => 'application/json')
-      puts "options: #{options.inspect}"
+      # puts "POST path: #{path}, options: #{options.inspect}"
       parse_response(self.class.post(path, options))
     end
 
