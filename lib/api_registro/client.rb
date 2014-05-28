@@ -92,7 +92,7 @@ module ApiRegistro
 
     def base_uri
       @env == ApiRegistro::Environments::PRODUCTION ?
-                    'http://apiregistro.com.br/api/v1' :
+                    'http://www.apiregistro.com.br/api/v1' :
                     'http://sandbox.apiregistro.com.br/api/v1'
     end
 
