@@ -14,7 +14,13 @@ module ApiRegistro
       message = nil
       if response
         message = "Got wrong response code (#{response.code} - #{response.message})!"
-        message = "#{response.parsed_response['detail']} (Response code #{response.code})" if response && response.parsed_response.is_a?(Hash)
+        if response.parsed_response.is_a?(Hash)
+          response_detail = response.parsed_response['detail']
+          response_message = response.parsed_response['message']
+          message = "#{response_detail}"
+          message += " - #{response_message}" if response_message
+          message += " (Response code #{response.code})"
+        end
       else
         message = super
       end
@@ -86,6 +92,7 @@ module ApiRegistro
       options[:base_uri] ||= base_uri
       options[:headers] ||= {}
       options[:headers].reverse_merge!('Accept' => 'application/json', 'Authorization' => "Token #{@token}", 'Content-Type' => 'application/json')
+      options[:body] = options[:body].to_json if options[:body].is_a?(Hash)
       # puts "POST path: #{path}, options: #{options.inspect}"
       parse_response(self.class.post(path, options))
     end
