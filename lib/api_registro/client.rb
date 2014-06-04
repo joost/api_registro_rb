@@ -51,15 +51,18 @@ module ApiRegistro
     end
 
     def contact(document_number)
-      get("/contacts/#{document_number}/")
+      get("/contacts/#{clean_document_number(document_number)}/")
     end
 
     def search_contacts(document_number)
-      get('/contacts', query: {document: document_number})
+      get('/contacts/', query: {document: clean_document_number(document_number)})
     end
 
+    # Required: name, email and document.
     def create_contact(contact_hash)
-      post('/contacts', body: contact_hash.to_json)
+      raise ArgumentError, "Creating a contact requires a name, document and email!" if ([:name, :document, :email] - contact_hash.keys) != []
+      # contact_hash[:document] = clean_document_number(contact_hash[:document])
+      post('/contacts/', body: contact_hash.to_json)
     end
 
     def domains
@@ -75,7 +78,7 @@ module ApiRegistro
     end
 
     def register_domain(domain, document_number)
-      post("/domains/#{domain}/buy/", body: {document: document_number}) # Ending slash in url is IMPORTANT. Otherwise you get: "Method 'GET' not allowed"
+      post("/domains/#{domain}/buy/", body: {document: clean_document_number(document_number)}) # Ending slash in url is IMPORTANT. Otherwise you get: "Method 'GET' not allowed"
     # rescue Error => error
     #   raise RegisterError.new(error.response) # FIXME: Better way?
     end
@@ -104,6 +107,10 @@ module ApiRegistro
     end
 
   private
+
+    def clean_document_number(document_number)
+      document_number.gsub(/[^\d]/, '')
+    end
 
     def parse_response(response)
       if response.success?
